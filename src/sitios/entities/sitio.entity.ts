@@ -32,6 +32,6 @@ export class Sitio {
   @ManyToOne(() => Usuario, usuario => usuario.sitios_encargados)
   persona_encargada: Usuario;
 
-  @OneToMany(() => Material, material => material.sitio)
+  @OneToMany(() => Material, material => material.sitio_id)
   materiales: Material[];
 }

@@ -22,6 +22,6 @@ export class Area {
   @ManyToOne(() => Sede, sede => sede.areas)
   sede: Sede;
 
-  @OneToMany(() => Programa, programa => programa.area)
+  @OneToMany(() => Programa, programa => programa.area_id)
   programas: Programa[];
 }

@@ -42,9 +42,9 @@ export class Usuario {
   @OneToMany(() => Sitio, sitio => sitio.persona_encargada)
   sitios_encargados: Sitio[];
 
-  @OneToMany(() => Movimiento, movimiento => movimiento.usuario_movimiento)
+  @OneToMany(() => Movimiento, movimiento => movimiento.usuario_movimiento_id)
   movimientos: Movimiento[];
 
-  @OneToMany(() => Ficha, ficha => ficha.usuario_ficha)
+  @OneToMany(() => Ficha, ficha => ficha.usuario_ficha_id)
   fichas: Ficha[];
 }
