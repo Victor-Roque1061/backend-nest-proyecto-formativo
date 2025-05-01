@@ -18,6 +18,6 @@ export class Municipio {
   @UpdateDateColumn()
   fecha_modificacion: Date;
 
-  @OneToMany(() => Centro, centro => centro.municipio)
+  @OneToMany(() => Centro, centro => centro.municipio_id)
   centros: Centro[];
 }

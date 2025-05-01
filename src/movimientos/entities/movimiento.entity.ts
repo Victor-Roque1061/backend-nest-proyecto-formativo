@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, Column, JoinColumn } from 'typeorm';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { TipoMovimiento } from '../../tipos-movimientos/entities/tipos-movimiento.entity';
+import { Material } from '../../materiales/entities/materiale.entity';
 
 @Entity('movimientos')
 export class Movimiento {
@@ -17,8 +18,14 @@ export class Movimiento {
   fecha_modificacion: Date;
 
   @ManyToOne(() => Usuario, usuario => usuario.movimientos)
-  usuario_movimiento_id: Usuario;
+  @JoinColumn({ name: 'usuario_movimiento_id' })
+  usuario: Usuario;
 
   @ManyToOne(() => TipoMovimiento, tipo => tipo.movimientos)
+  @JoinColumn({ name: 'tipo_movimiento_id' })
   tipo_movimiento_id: TipoMovimiento;
+
+  @ManyToOne(() => Material, material => material.movimientos, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'material_id' })
+  material_id: Material;
 }

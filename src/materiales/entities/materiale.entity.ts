@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { CategoriaElemento } from '../../categoria-elementos/entities/categoria-elemento.entity';
 import { TipoMaterial } from '../../tipo-materiales/entities/tipo-materiale.entity';
 import { Sitio } from '../../sitios/entities/sitio.entity';
+import { Movimiento } from '../../movimientos/entities/movimiento.entity';
 
 @Entity('materiales')
 export class Material {
@@ -39,11 +40,17 @@ export class Material {
   fecha_modificacion: Date;
 
   @ManyToOne(() => CategoriaElemento, categoria => categoria.materiales)
+  @JoinColumn({ name: 'categoria_id' })
   categoria_id: CategoriaElemento;
 
   @ManyToOne(() => TipoMaterial, tipo => tipo.materiales)
+  @JoinColumn({ name: 'tipo_material_id' })
   tipo_material_id: TipoMaterial;
 
   @ManyToOne(() => Sitio, sitio => sitio.materiales)
+  @JoinColumn({ name: 'sitio_id' })
   sitio_id: Sitio;
+
+  @OneToMany(() => Movimiento, movimiento => movimiento.material_id)
+  movimientos: Movimiento[];
 }

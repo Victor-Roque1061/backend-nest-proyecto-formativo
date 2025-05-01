@@ -27,7 +27,7 @@ export class ProgramasService {
   
     const programa = this.programaRepository.create({
       ...rest,
-      area, 
+      area_id: area, 
     });
   
     return await this.programaRepository.save(programa);

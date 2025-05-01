@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Rol } from '../../roles/entities/role.entity';
-import { Sitio } from '../../sitios/entities/sitio.entity';
 import { Movimiento } from '../../movimientos/entities/movimiento.entity';
 import { Ficha } from '../../fichas/entities/ficha.entity';
 
@@ -37,14 +36,12 @@ export class Usuario {
   fecha_registro: Date;
 
   @ManyToOne(() => Rol, rol => rol.usuarios)
+  @JoinColumn({ name: 'rol_id' })
   rol: Rol;
 
-  @OneToMany(() => Sitio, sitio => sitio.persona_encargada)
-  sitios_encargados: Sitio[];
-
-  @OneToMany(() => Movimiento, movimiento => movimiento.usuario_movimiento_id)
+  @OneToMany(() => Movimiento, movimiento => movimiento.usuario)
   movimientos: Movimiento[];
 
-  @OneToMany(() => Ficha, ficha => ficha.usuario_ficha_id)
+  @OneToMany(() => Ficha, ficha => ficha.usuario)
   fichas: Ficha[];
 }

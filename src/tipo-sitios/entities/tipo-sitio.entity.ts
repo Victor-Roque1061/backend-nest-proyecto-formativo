@@ -18,6 +18,6 @@ export class TipoSitio {
   @UpdateDateColumn()
   fecha_modificacion: Date;
 
-  @OneToMany(() => Sitio, sitio => sitio.tipo_sitio)
+  @OneToMany(() => Sitio, sitio => sitio.tipo_sitio_id)
   sitios: Sitio[];
 }

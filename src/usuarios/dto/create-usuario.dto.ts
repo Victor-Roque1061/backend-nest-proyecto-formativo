@@ -40,5 +40,5 @@ export class CreateUsuarioDto {
 
     @IsNotEmpty()
     @IsNumber()
-    rol: number;
+    rol_id: number;
 }

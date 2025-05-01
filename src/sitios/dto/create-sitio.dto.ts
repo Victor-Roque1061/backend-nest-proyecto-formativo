@@ -26,7 +26,7 @@ export class CreateSitioDto {
 
     @IsNotEmpty()
     @IsNumber()
-    tipo_sitio: number;
+    tipo_sitio_id: number;
 
     @IsNotEmpty()
     @IsNumber()

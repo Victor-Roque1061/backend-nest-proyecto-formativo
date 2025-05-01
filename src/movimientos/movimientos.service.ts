@@ -27,21 +27,21 @@ export class MovimientosService {
 
     const nuevo = this.movimientoRepo.create({
       ...dto,
-      usuario_movimiento: usuario,
-      tipo_movimiento: tipo,
+      usuario: usuario,
+      tipo_movimiento_id: tipo,
     });
 
     return this.movimientoRepo.save(nuevo);
   }
 
   async findAll(): Promise<Movimiento[]> {
-    return this.movimientoRepo.find({ relations: ['usuario_movimiento', 'tipo_movimiento'] });
+    return this.movimientoRepo.find({ relations: ['usuario', 'tipo_movimiento'] });
   }
 
   async findOne(id: number): Promise<Movimiento> {
     const movimiento = await this.movimientoRepo.findOne({
       where: { id_movimiento: id },
-      relations: ['usuario_movimiento', 'tipo_movimiento'],
+      relations: ['usuario', 'tipo_movimiento'],
     });
     if (!movimiento) throw new NotFoundException(`Movimiento con ID ${id} no encontrado`);
     return movimiento;
@@ -53,13 +53,13 @@ export class MovimientosService {
     if (dto.usuario_movimiento) {
       const usuario = await this.usuarioRepo.findOneBy({ id_usuario: dto.usuario_movimiento });
       if (!usuario) throw new NotFoundException(`Usuario con ID ${dto.usuario_movimiento} no encontrado`);
-      movimiento.usuario_movimiento = usuario;
+      movimiento.usuario = usuario;
     }
 
     if (dto.tipo_movimiento) {
       const tipo = await this.tipoMovimientoRepo.findOneBy({ id_tipo_movimiento: dto.tipo_movimiento });
       if (!tipo) throw new NotFoundException(`TipoMovimiento con ID ${dto.tipo_movimiento} no encontrado`);
-      movimiento.tipo_movimiento = tipo;
+      movimiento.tipo_movimiento_id = tipo;
     }
 
     Object.assign(movimiento, dto);

@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sitio } from './entities/sitio.entity';
 import { TipoSitio } from 'src/tipo-sitios/entities/tipo-sitio.entity'; // Asegúrate de importar correctamente TipoSitio
-import { Usuario } from 'src/usuarios/entities/usuario.entity';// Asegúrate de importar correctamente Usuario
 import { CreateSitioDto } from './dto/create-sitio.dto';
 import { UpdateSitioDto } from './dto/update-sitio.dto';
 
@@ -15,29 +14,20 @@ export class SitioService {
 
     @InjectRepository(TipoSitio)
     private readonly tipoSitioRepo: Repository<TipoSitio>,  // Repositorio de TipoSitio
-
-    @InjectRepository(Usuario)
-    private readonly usuarioRepo: Repository<Usuario>,  // Repositorio de Usuario (si aplica)
   ) {}
 
   async create(dto: CreateSitioDto): Promise<Sitio> {
     
-    // Buscar la entidad TipoSitio y Usuario por sus IDs
-    const tipoSitio = await this.tipoSitioRepo.findOneBy({ id_tipo_sitio: dto.tipo_sitio });
+    // Buscar la entidad TipoSitio por su ID
+    const tipoSitio = await this.tipoSitioRepo.findOneBy({ id_tipo_sitio: dto.tipo_sitio_id });
     if (!tipoSitio) {
-      throw new NotFoundException(`TipoSitio con ID ${dto.tipo_sitio} no encontrado`);
+      throw new NotFoundException(`TipoSitio con ID ${dto.tipo_sitio_id} no encontrado`);
     }
 
-    const personaEncargada = await this.usuarioRepo.findOneBy({ id_usuario: dto.persona_encargada });
-    if (!personaEncargada) {
-      throw new NotFoundException(`Usuario con ID ${dto.persona_encargada} no encontrado`);
-    }
-
-    // Crear el nuevo Sitio, asignando las entidades completas a las relaciones
+    // Crear el nuevo Sitio, asignando la entidad completa a la relación
     const nuevo = this.sitioRepo.create({
       ...dto,
-      tipo_sitio: tipoSitio,  // Asignamos el objeto TipoSitio completo
-      persona_encargada: personaEncargada,  // Asignamos el objeto Usuario completo
+      tipo_sitio_id: tipoSitio,  // Asignamos el objeto TipoSitio completo
     });
 
     return this.sitioRepo.save(nuevo);

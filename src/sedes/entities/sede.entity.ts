@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Centro } from '../../centros/entities/centro.entity';
 import { Area } from '../../areas/entities/area.entity';
 
@@ -23,8 +23,10 @@ export class Sede {
   fecha_modificacion: Date;
 
   @ManyToOne(() => Centro, centro => centro.sedes)
+  @JoinColumn({ name: 'centro_id' })
   centro: Centro;
 
   @OneToMany(() => Area, area => area.sede)
+  @JoinColumn({ name: 'sede_id' })
   areas: Area[];
 }

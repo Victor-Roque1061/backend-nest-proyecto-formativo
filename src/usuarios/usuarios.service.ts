@@ -16,8 +16,8 @@ export class UsuariosService {
   ) {}
 
   async create(dto: CreateUsuarioDto): Promise<Usuario> {
-    const rol = await this.rolRepo.findOneBy({ id_rol: dto.rol });
-    if (!rol) throw new NotFoundException(`Rol con ID ${dto.rol} no encontrado`);
+    const rol = await this.rolRepo.findOneBy({ id_rol: dto.rol_id });
+    if (!rol) throw new NotFoundException(`Rol con ID ${dto.rol_id} no encontrado`);
 
     const nuevoUsuario = this.usuarioRepo.create({ ...dto, rol });
     return this.usuarioRepo.save(nuevoUsuario);
@@ -39,9 +39,9 @@ export class UsuariosService {
   async update(id: number, dto: UpdateUsuarioDto): Promise<Usuario> {
     const usuario = await this.findOne(id);
 
-    if (dto.rol) {
-      const rol = await this.rolRepo.findOneBy({ id_rol: dto.rol });
-      if (!rol) throw new NotFoundException(`Rol con ID ${dto.rol} no encontrado`);
+    if (dto.rol_id) {
+      const rol = await this.rolRepo.findOneBy({ id_rol: dto.rol_id });
+      if (!rol) throw new NotFoundException(`Rol con ID ${dto.rol_id} no encontrado`);
       usuario.rol = rol;
     }
 

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { TipoSitio } from '../../tipo-sitios/entities/tipo-sitio.entity';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Material } from '../../materiales/entities/materiale.entity';
@@ -27,10 +27,8 @@ export class Sitio {
   fecha_modificacion: Date;
 
   @ManyToOne(() => TipoSitio, tipo => tipo.sitios)
-  tipo_sitio: TipoSitio;
-
-  @ManyToOne(() => Usuario, usuario => usuario.sitios_encargados)
-  persona_encargada: Usuario;
+  @JoinColumn({ name: 'tipo_sitio_id' })
+  tipo_sitio_id: TipoSitio;
 
   @OneToMany(() => Material, material => material.sitio_id)
   materiales: Material[];

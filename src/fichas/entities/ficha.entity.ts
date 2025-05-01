@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, Column, JoinColumn } from 'typeorm';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Programa } from '../../programas/entities/programa.entity';
 
@@ -17,8 +17,10 @@ export class Ficha {
   fecha_modificacion: Date;
 
   @ManyToOne(() => Usuario, usuario => usuario.fichas)
-  usuario_ficha_id: Usuario;
+  @JoinColumn({ name: 'usuario_id' })
+  usuario: Usuario;
 
   @ManyToOne(() => Programa, programa => programa.fichas)
+  @JoinColumn({ name: 'programa_id' })
   programa_id: Programa;
 }

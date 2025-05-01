@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Area } from '../../areas/entities/area.entity';
 import { Ficha } from '../../fichas/entities/ficha.entity';
 
@@ -20,8 +20,10 @@ export class Programa {
   fecha_modificacion: Date;
 
   @ManyToOne(() => Area, area => area.programas)
+  @JoinColumn({ name: 'area_id' })
   area_id: Area;
 
   @OneToMany(() => Ficha, ficha => ficha.programa_id)
+  @JoinColumn({ name: 'programa_id' })
   fichas: Ficha[];
 }
