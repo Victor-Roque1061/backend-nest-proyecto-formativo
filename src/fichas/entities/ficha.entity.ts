@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, Column, JoinColumn } from 'typeorm';
+import { Entity, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, Column, JoinColumn } from 'typeorm';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Programa } from '../../programas/entities/programa.entity';
 
 @Entity('fichas')
 export class Ficha {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id_ficha: number;
 
   @Column({ type: 'boolean', default: true })
@@ -23,4 +23,4 @@ export class Ficha {
   @ManyToOne(() => Programa, programa => programa.fichas)
   @JoinColumn({ name: 'programa_id' })
   programa_id: Programa;
-}
+} 

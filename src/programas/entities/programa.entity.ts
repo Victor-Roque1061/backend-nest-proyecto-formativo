@@ -21,7 +21,10 @@ export class Programa {
 
   @ManyToOne(() => Area, area => area.programas)
   @JoinColumn({ name: 'area_id' })
-  area_id: Area;
+  area: Area;
+
+  @Column()
+  area_id: number;
 
   @OneToMany(() => Ficha, ficha => ficha.programa_id)
   @JoinColumn({ name: 'programa_id' })

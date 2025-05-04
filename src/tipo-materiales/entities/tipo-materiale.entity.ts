@@ -21,3 +21,4 @@ export class TipoMaterial {
   @OneToMany(() => Material, material => material.tipo_material_id)
   materiales: Material[];
 }
+ 

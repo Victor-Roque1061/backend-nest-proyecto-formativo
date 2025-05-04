@@ -1,22 +1,21 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
-
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateTipoMaterialeDto {
+  @IsNotEmpty()
+  @IsString()
+  tipo_elemento: string;
 
-@IsNotEmpty()
-@IsNumber()
-tipo_elemento: number;
+  @IsNotEmpty()
+  @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true || value === 1) // Convierte 1 o "true" a booleano
+  estado: boolean;
 
-@IsNotEmpty()
-@IsBoolean()
-estado: boolean;
+  @IsNotEmpty()
+  @IsString()
+  fecha_creacion: string;
 
-@IsNotEmpty()
-@IsString()
-fecha_creacion: string;
-
-@IsNotEmpty()
-@IsString()
-fecha_modificacion: string;
-
+  @IsNotEmpty()
+  @IsString()
+  fecha_modificacion: string;
 }

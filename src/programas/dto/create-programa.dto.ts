@@ -1,39 +1,19 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-
+import { IsNotEmpty, IsNumber, IsString, IsBoolean } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateProgramaDto {
-    @IsNotEmpty()
-    @IsNumber()
-    id_programa: number;
-
-    @IsNotEmpty()
-    @IsString()
-    nombre_programa: string;
-
-    @IsNotEmpty()
-    @IsString()
-    fecha_creacion: string;
-
-    @IsNotEmpty()
-    @IsString()
-    fecha_modificacion: string;
-
-    @IsNotEmpty()
-    @IsNumber()
-    area: number;
-
-    
-}
-/* import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
-
-export class CreateAreaDto {
   @IsNotEmpty()
   @IsNumber()
-  areaId: number;
+  id_programa: number;
 
   @IsNotEmpty()
   @IsString()
-  nombre_area: string;
+  nombre_programa: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true || value === 1)
+  estado: boolean;
 
   @IsNotEmpty()
   @IsString()
@@ -43,9 +23,7 @@ export class CreateAreaDto {
   @IsString()
   fecha_modificacion: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
-  sedeId?: number;
-
+  area_id: number;
 }
- */

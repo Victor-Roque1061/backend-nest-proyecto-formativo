@@ -24,3 +24,4 @@ export class CategoriaElemento {
   @OneToMany(() => Material, material => material.categoria_id)
   materiales: Material[];
 }
+ 

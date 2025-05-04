@@ -1,13 +1,19 @@
-import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsOptional, IsBoolean } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateAreaDto {
   @IsNotEmpty()
   @IsNumber()
-  areaId: number;
+  id_area: number;
 
   @IsNotEmpty()
   @IsString()
   nombre_area: string;
+
+  @IsNotEmpty() 
+    @IsBoolean()
+    @Transform(({ value }) => value === 'true' || value === true || value === 1) // Convierte 1 o "true" a booleano
+    estado: boolean; 
 
   @IsNotEmpty()
   @IsString()
@@ -19,6 +25,6 @@ export class CreateAreaDto {
 
   @IsOptional()
   @IsNumber()
-  sedeId?: number;
+  id_sede?: number;
 
 }

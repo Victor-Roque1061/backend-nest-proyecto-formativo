@@ -1,17 +1,26 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-
+import { IsNotEmpty, IsNumber, IsString, IsBoolean } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateFichaDto {
-@IsNotEmpty()
-@IsString()
-fecha_creacion: string;
+  @IsNotEmpty()
+  @IsNumber()
+  id_ficha: number;
 
-@IsNotEmpty()
-@IsString()
-fecha_modificacion: string;
+  @IsNotEmpty()
+  @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true || value === 1) // Convierte 1 o "true" a booleano
+  estado: boolean;
 
-@IsNotEmpty()
-@IsNumber()
-programa:number;
-    
+  @IsNotEmpty()
+  @IsString()
+  fecha_creacion: string;
+
+  @IsNotEmpty()
+  @IsString()
+  fecha_modificacion: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  programa: number;
 }
+

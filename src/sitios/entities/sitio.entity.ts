@@ -33,3 +33,4 @@ export class Sitio {
   @OneToMany(() => Material, material => material.sitio_id)
   materiales: Material[];
 }
+ 

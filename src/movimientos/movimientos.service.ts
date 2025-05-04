@@ -19,8 +19,8 @@ export class MovimientosService {
   ) {}
 
   async create(dto: CreateMovimientoDto): Promise<Movimiento> {
-    const usuario = await this.usuarioRepo.findOneBy({ id_usuario: dto.usuario_movimiento });
-    if (!usuario) throw new NotFoundException(`Usuario con ID ${dto.usuario_movimiento} no encontrado`);
+    const usuario = await this.usuarioRepo.findOneBy({ id_usuario: dto.usuario_id });
+    if (!usuario) throw new NotFoundException(`Usuario con ID ${dto.usuario_id} no encontrado`);
 
     const tipo = await this.tipoMovimientoRepo.findOneBy({ id_tipo_movimiento: dto.tipo_movimiento });
     if (!tipo) throw new NotFoundException(`TipoMovimiento con ID ${dto.tipo_movimiento} no encontrado`);
@@ -35,13 +35,13 @@ export class MovimientosService {
   }
 
   async findAll(): Promise<Movimiento[]> {
-    return this.movimientoRepo.find({ relations: ['usuario', 'tipo_movimiento'] });
+    return this.movimientoRepo.find({ relations: ['usuario', 'tipo_movimiento_id'] });
   }
 
   async findOne(id: number): Promise<Movimiento> {
     const movimiento = await this.movimientoRepo.findOne({
       where: { id_movimiento: id },
-      relations: ['usuario', 'tipo_movimiento'],
+      relations: ['usuario', 'tipo_movimiento_id'],
     });
     if (!movimiento) throw new NotFoundException(`Movimiento con ID ${id} no encontrado`);
     return movimiento;
@@ -50,9 +50,9 @@ export class MovimientosService {
   async update(id: number, dto: UpdateMovimientoDto): Promise<Movimiento> {
     const movimiento = await this.findOne(id);
 
-    if (dto.usuario_movimiento) {
-      const usuario = await this.usuarioRepo.findOneBy({ id_usuario: dto.usuario_movimiento });
-      if (!usuario) throw new NotFoundException(`Usuario con ID ${dto.usuario_movimiento} no encontrado`);
+    if (dto.usuario_id) {
+      const usuario = await this.usuarioRepo.findOneBy({ id_usuario: dto.usuario_id });
+      if (!usuario) throw new NotFoundException(`Usuario con ID ${dto.usuario_id} no encontrado`);
       movimiento.usuario = usuario;
     }
 

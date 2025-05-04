@@ -33,6 +33,9 @@ export class Material {
   @Column({ type: 'timestamp' })
   fecha_vencimiento: Date;
 
+  @Column({ length: 255, nullable: true })
+  imagen: string;
+
   @CreateDateColumn()
   fecha_creacion: Date;
 

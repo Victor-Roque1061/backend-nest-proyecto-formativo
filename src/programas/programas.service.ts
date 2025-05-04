@@ -15,21 +15,21 @@ export class ProgramasService {
   ) {}
 
   async create(createProgramaDto: CreateProgramaDto) {
-    const { area: areaId, ...rest } = createProgramaDto;
-  
+    const { area_id, ...rest } = createProgramaDto;
+
     const area = await this.programaRepository.manager.findOne(Area, {
-      where: { id_area: areaId },
+      where: { id_area: area_id },
     });
-  
+
     if (!area) {
-      throw new NotFoundException(`Area with ID ${areaId} not found`);
+      throw new NotFoundException(`Area with ID ${area_id} not found`);
     }
-  
+
     const programa = this.programaRepository.create({
       ...rest,
-      area_id: area, 
+      area, // Asigna el objeto area a la relación
     });
-  
+
     return await this.programaRepository.save(programa);
   }
   

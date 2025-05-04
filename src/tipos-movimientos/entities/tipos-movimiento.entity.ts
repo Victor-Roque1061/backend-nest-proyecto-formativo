@@ -21,3 +21,4 @@ export class TipoMovimiento {
   @OneToMany(() => Movimiento, movimiento => movimiento.tipo_movimiento_id)
   movimientos: Movimiento[];
 }
+ 

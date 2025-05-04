@@ -14,13 +14,13 @@ export class AreasService {
   ) {}
 
   async create(createAreaDto: CreateAreaDto) {
-    const { areaId, ...rest } = createAreaDto;
-    const sede = areaId
-      ? await this.areaRepository.manager.findOne(Sede, { where: { id_sede: areaId } })
+    const { id_area, ...rest } = createAreaDto;
+    const sede = id_area
+      ? await this.areaRepository.manager.findOne(Sede, { where: { id_sede: id_area } })
       : undefined;
 
-    if (areaId && !sede) {
-      throw new NotFoundException(`Sede with ID ${areaId} not found`);
+    if (id_area && !sede) {
+      throw new NotFoundException(`Sede with ID ${id_area} not found`);
     }
 
     const area = this.areaRepository.create({

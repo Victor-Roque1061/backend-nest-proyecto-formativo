@@ -1,8 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
-
 export class CreateMaterialeDto {
-
     @IsNotEmpty()
     @IsString()
     codigo_sena: string;
@@ -30,6 +28,13 @@ export class CreateMaterialeDto {
     @IsNotEmpty()
     @IsBoolean()
     producto_perecedero: boolean;
+
+    @IsNotEmpty()
+    @IsBoolean()
+    estado: boolean;
+
+    @IsString()
+    imagen?: string;
 
     @IsNotEmpty()
     @IsString()

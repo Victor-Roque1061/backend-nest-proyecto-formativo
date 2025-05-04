@@ -29,6 +29,10 @@ export class TiposMovimientoService {
 
   async update(id: number, dto: UpdateTiposMovimientoDto): Promise<TipoMovimiento> {
     const tipo = await this.findOne(id);
+    // Asignación explícita del campo 'estado' para evitar problemas con valores undefined o falsy
+    if (dto.estado !== undefined) {
+      tipo.estado = dto.estado;
+    }
     Object.assign(tipo, dto);
     return this.tipoMovimientoRepo.save(tipo);
   }
